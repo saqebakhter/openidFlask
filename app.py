@@ -174,4 +174,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc")
+    #ssl
+    #app.run(ssl_context="adhoc")
+    #non-ssl
+    app.run()
