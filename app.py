@@ -30,8 +30,12 @@ config.read('config.ini')
 WS1_CLIENT_ID = config['DEFAULT']['WS1_CLIENT_ID']
 WS1_CLIENT_SECRET = config['DEFAULT']['WS1_CLIENT_SECRET']
 WS1_DISCOVERY_URL = config['DEFAULT']['WS1_DISCOVERY_URL']
+REDIRECT_HTTPS = config['DEFAULT']['REDIRECT_HTTPS']
 
-
+if REDIRECT_HTTPS.lower() == 'true':
+    REDIRECT_HTTPS = True
+else:
+    REDIRECT_HTTPS = False
 
 app = Flask(__name__)
 
@@ -87,6 +91,9 @@ def login():
 
     # Use library to construct the request for WS1 login and provide
     # scopes that let you retrieve user's profile from WS1
+    redirect_uri = request.base_url + "/callback"
+    if REDIRECT_HTTPS:
+        redirect_uri.replace('http://', 'https://')
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=request.base_url + "/callback",
