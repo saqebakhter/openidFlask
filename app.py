@@ -93,10 +93,10 @@ def login():
     # scopes that let you retrieve user's profile from WS1
     redirect_uri = request.base_url + "/callback"
     if REDIRECT_HTTPS:
-        redirect_uri.replace('http://', 'https://')
+        redirect_uri = redirect_uri.replace('http://', 'https://')
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=redirect_uri,
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
