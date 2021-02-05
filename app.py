@@ -86,8 +86,8 @@ def load_user(user_id):
 def index():
     if current_user.is_authenticated:
         return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            '<a class="button" href="/speedtest">SpeedTest</a>'
+            "<p>Hello, {}! You're logged in! Email: {}</p><br>"
+            '<a class="button" href="/speedtest">SpeedTest</a><br>'
             '<a class="button" href="/logout">Logout</a>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
