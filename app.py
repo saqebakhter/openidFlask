@@ -187,8 +187,13 @@ def speedtest():
 
 @app.route('/ip', methods=[ 'POST', 'GET'])
 @login_required
+
 def ip():
-    return str(request.remote_addr)
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
+    else:
+        ip = request.remote_addr
+    return str(ip)
 
 
 @app.route('/empty', methods=[ 'POST', 'GET'])
