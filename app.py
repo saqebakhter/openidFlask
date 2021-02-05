@@ -72,7 +72,10 @@ def get_ws1_provider_cfg():
 
 
 # Flask-Login helper to retrieve a user from our db
-
+@login_manager.unauthorized_handler
+def unauthorized():
+    # do stuff
+    return redirect(url_for('login'))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -181,8 +184,12 @@ def callback():
 def speedtest():
     return render_template('speedtest.html')
 
+@app.route('/ip', methods=[ 'POST', 'GET'])
+def ip():
+    return str(request.remote_addr)
 
-@app.route('/empty', methods=[ 'POST'])
+
+@app.route('/empty', methods=[ 'POST', 'GET'])
 def empty():
     return ''
 

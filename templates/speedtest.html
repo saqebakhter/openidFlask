@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 {% assets "js_all" %}
 <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div id="ipArea">
-		<p>Dirección de IP:</p>
+		<p>IP Address</p>
 		<span id="ip"></span>
 	</div>
 </div>
@@ -156,7 +156,7 @@ function startStop(){
 	}else{
 		//test is not running, begin
 		w=new Worker('static/js/test.js');
-		w.postMessage('start {"url_dl": "../garbage.dat", "url_ul": "../../empty", "url_ping": "empty", "url_getIp": "ip"}')
+		w.postMessage('start {"url_dl": "../garbage.dat", "url_ul": "../../empty", "url_ping": "../../empty", "url_getIp": "../../ip"}')
 		I("startStopBtn").className="running";
 		w.onmessage=function(e){
 			var data=e.data.split(';');
