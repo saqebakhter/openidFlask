@@ -181,15 +181,18 @@ def callback():
 
 
 @app.route('/speedtest')
+@login_required
 def speedtest():
     return render_template('speedtest.html')
 
 @app.route('/ip', methods=[ 'POST', 'GET'])
+@login_required
 def ip():
     return str(request.remote_addr)
 
 
 @app.route('/empty', methods=[ 'POST', 'GET'])
+@login_required
 def empty():
     return ''
 
