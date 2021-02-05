@@ -87,13 +87,13 @@ def index():
     if current_user.is_authenticated:
         return (
             "<p>Hello, {}! You're logged in! Email: {}</p>"
-
+            '<a class="button" href="/speedtest">SpeedTest</a>'
             '<a class="button" href="/logout">Logout</a>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
         )
     else:
-        return '<a class="button" href="/login">WS1 Login</a>'
+        return '<a class="button" href="/login">WS1 Login</a><br>'
 
 
 @app.route("/login")
