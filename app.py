@@ -6,7 +6,7 @@ import oauthlib
 import configparser
 
 # Third-party libraries
-from flask import Flask, redirect, request, url_for
+from flask import Flask, redirect, request, url_for,render_template
 from flask_login import (
     LoginManager,
     current_user,
@@ -20,6 +20,11 @@ import requests
 # Internal imports
 from db import init_db_command
 from user import User
+from flask_assets import Bundle, Environment
+
+
+
+
 
 # Configuration
 config = configparser.ConfigParser()
@@ -38,8 +43,13 @@ else:
     REDIRECT_HTTPS = False
 
 app = Flask(__name__)
-
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+
+env = Environment(app)
+js = Bundle('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
+            'https://code.jquery.com/ui/1.12.1/jquery-ui.js' ,'js/test.js')
+env.register('js_all', js)
+
 
 # User session management setup
 # https://flask-login.readthedocs.io/en/latest
@@ -100,6 +110,7 @@ def login():
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
+
 
 @app.route("/login/callback")
 def callback():
@@ -166,6 +177,16 @@ def callback():
     return redirect(url_for("index"))
 
 
+@app.route('/speedtest')
+def speedtest():
+    return render_template('speedtest.html')
+
+
+@app.route('/empty', methods=[ 'POST'])
+def empty():
+    return ''
+
+
 @app.route('/download')
 @login_required
 def download():
@@ -182,6 +203,6 @@ def logout():
 
 if __name__ == "__main__":
     #ssl
-    #app.run(ssl_context="adhoc")
+    app.run(ssl_context="adhoc")
     #non-ssl
-    app.run()
+    #app.run()
