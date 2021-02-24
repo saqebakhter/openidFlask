@@ -1,9 +1,18 @@
 # Python standard libraries
 import json
 import os
+import sys
 import sqlite3
 import oauthlib
 import configparser
+import logging
+import logapp
+
+logging.basicConfig(filename='log.txt', encoding='utf-8', level=logging.DEBUG)
+
+log = logging.getLogger('applog')
+sys.stdout = logapp.LoggerWriter(log.debug)
+sys.stderr = logapp.LoggerWriter(log.warning)
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for,render_template
@@ -142,6 +151,7 @@ def callback():
         return str(e)
 
     # Parse the tokens!
+    log.debug(json.dumps(token_response.json()))
     client.parse_request_body_response(json.dumps(token_response.json()))
     # Now that you have tokens (yay) let's find and hit the URL
     # from WS1 that gives you the user's profile information,
@@ -150,7 +160,7 @@ def callback():
     uri, headers, body = client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body)
 
-    print(userinfo_response.json())
+    log.debug(userinfo_response.json())
     # You want to make sure their email is verified.
     # The user authenticated with WS1, authorized your
     # app, and now you've verified their email through WS1!
