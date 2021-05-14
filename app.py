@@ -36,6 +36,8 @@ WS1_CLIENT_ID = config['DEFAULT']['WS1_CLIENT_ID']
 WS1_CLIENT_SECRET = config['DEFAULT']['WS1_CLIENT_SECRET']
 WS1_DISCOVERY_URL = config['DEFAULT']['WS1_DISCOVERY_URL']
 REDIRECT_HTTPS = config['DEFAULT']['REDIRECT_HTTPS']
+APP_TITLE = config['DEFAULT']['APP_TITLE']
+APP_DESCRIPTION = config['DEFAULT']['APP_DESCRIPTION']
 
 if REDIRECT_HTTPS.lower() == 'true':
     REDIRECT_HTTPS = True
@@ -93,7 +95,9 @@ def index():
             )
         )
     else:
-        return '<a class="button" href="/login">WS1 Login</a><br>'
+        return '<h2>{}</h2><p>{}</p><a class="button" href="/login">WS1 Login</a><br>'.format(
+            APP_TITLE, APP_DESCRIPTION
+        )
 
 
 @app.route("/login")

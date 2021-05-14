@@ -3,3 +3,5 @@ WS1_CLIENT_ID =
 WS1_CLIENT_SECRET =
 WS1_DISCOVERY_URL =
 REDIRECT_HTTPS =
+APP_TITLE = "Sample Application"
+APP_DESCRIPTION = "This app makes users happy"
