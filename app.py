@@ -8,7 +8,8 @@ import configparser
 import logging
 import logapp
 
-logging.basicConfig(filename='log.txt', encoding='utf-8', level=logging.DEBUG)
+#logging.basicConfig(filename='log.txt', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='log.txt',  level=logging.DEBUG)
 
 log = logging.getLogger('applog')
 sys.stdout = logapp.LoggerWriter(log.debug)
